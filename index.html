@@ -1,0 +1,37 @@
+<html>
+<head>
+	<title>Blogger Grader Demo</title>
+	<meta charset="utf-8"> 
+</head>
+<body>
+	<link rel="stylesheet" href="css/sts.css">
+	<h1>STS Grader</h1>
+	<div id="content" type="x-tmpl-mustache">
+		<table border=2 id="posts" class="sortable">
+		<tr>
+			<th>Who</th>
+			<th>When</th>
+			<th>Topic</th>
+			<th>Num. Comments</th>
+		</tr>
+		<!--{{#items}}-->
+		<tr>
+			<td>{{author.displayName}}</td>
+			<td>{{published}}</td>
+			<td><a href="{{url}}">{{title}}</a></td>
+			<td>{{replies.totalItems}}</td>
+		</tr>
+		<!--{{/items}}-->
+		</table>
+		{{^repos}}Something went wrong!({{/repos}}
+	</div>
+
+	<footer>
+	Made by <a href="https://github.com/chris-barry/">chris</a>
+	</footer>
+
+	<script src="js/mustache.js"></script>
+	<script src="js/sorttable.js"></script>
+	<script src="js/sts.js"></script>
+</body>
+</html>

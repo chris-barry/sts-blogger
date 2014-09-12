@@ -66,6 +66,18 @@ function getBloggerStats(api_key, blog_id, next_token) {
 	request.send();
 }
 
+// This will fix the ugly dates.
+// I don't know if I want to use this yet.
+function fixDates() {
+	Array.prototype.forEach.call(
+
+	document.querySelectorAll("#posts .date"),
+
+	function(el, i) {
+		el.innerHTML = new Date(el.innerHTML).toLocaleDateString();
+	});
+}
+
 loadBlogs();
 
 // @license-end

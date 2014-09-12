@@ -27,9 +27,9 @@ function getBloggerStats(api_key, blog_id, next_token) {
 	var request = new XMLHttpRequest();
 	if(next_token) {
 		//alert(next_token);
-		request.open('GET', 'https://www.googleapis.com/blogger/v3/blogs/' + blog_id + '/posts?pageToken=' + next_token + '&key=' + api_key, true);
+		request.open('GET', 'https://www.googleapis.com/blogger/v3/blogs/' + blog_id + '/posts?pageToken=' + next_token + '&fields=kind,nextPageToken,items(title,published,replies/totalItems,url,author/displayName)' + '&key=' + api_key, true);
 	} else {
-		request.open('GET', 'https://www.googleapis.com/blogger/v3/blogs/' + blog_id + '/posts?key=' + api_key, true);
+		request.open('GET', 'https://www.googleapis.com/blogger/v3/blogs/' + blog_id + '/posts?key=' + api_key + '&fields=kind,nextPageToken,items(title,published,replies/totalItems,url,author/displayName)', true);
 	}
 
 	request.onload = function bloggerOnLoad() {

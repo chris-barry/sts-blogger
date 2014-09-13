@@ -59,15 +59,16 @@ function getBloggerStats(api_key, blog_id) {
 	rendered = Mustache.render(template, pages);
 	document.getElementById("posts").innerHTML = rendered;
 	sorttable.makeSortable(document.querySelectorAll("#posts > table:nth-child(1)")[0]);
-	//sorttable.makeSortable(document.getElementById("posts-table"));
+	fixDates();
 }
 
-// This will fix the ugly dates.
-// I don't know if I want to use this yet.
 function fixDates() {
+	var date;
 	Array.prototype.forEach.call(
 	document.querySelectorAll("#posts .date"), function(el, i) {
-		el.innerHTML = new Date(el.innerHTML).toLocaleDateString();
+		//el.innerHTML = new Date(el.innerHTML).toLocaleDateString();
+		date = new Date(el.innerHTML);
+		el.innerHTML = date.toDateString() + " at " + date.getHours() + ":" + date.getMinutes();
 	});
 }
 

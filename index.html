@@ -15,20 +15,28 @@
 	</div>
 	<div id="posts-template" class="template" type="x-tmpl-mustache">
 		<table border=2 id="posts-table" class="sortable">
-		<tr>
-			<th>Who</th>
-			<th>When</th>
-			<th>Topic</th>
-			<th>Num. Comments</th>
-		</tr>
-		<!--{{#items}}-->
-		<tr>
-			<td>{{author.displayName}}</td>
-			<td class="date">{{published}}</td>
-			<td><a href="{{url}}">{{title}}</a></td>
-			<td>{{replies.totalItems}}</td>
-		</tr>
-		<!--{{/items}}-->
+			<tr>
+				<th>Who</th>
+				<th>When</th>
+				<th>Topic</th>
+				<th>Num. Comments</th>
+			</tr>
+			<!--{{#items}}-->
+			<tr>
+				<td>{{author.displayName}}</td>
+				<td sorttable_customkey="{{published}}" class="date">{{published}}</td>
+				<td><a href="{{url}}">{{title}}</a></td>
+				<td>{{replies.totalItems}}</td>
+			</tr>
+			<!--{{/items}}-->
+			<!--
+			<tfoot>
+				<th>Who</th>
+				<th>When</th>
+				<th>Topic</th>
+				<th>Num. Comments</th>
+			</tfoot>
+			-->
 		</table>
 	</div>
 

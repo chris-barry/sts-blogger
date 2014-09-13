@@ -15,7 +15,7 @@ To run your own instance of this page, you will need three things:
 
 1. Clone this repository to the directory where it will be served from.
    For this example, we will use `/srv/www/grader/`.
-2. Second, configure blogs.json with the information about your blogs.
+2. Second, configure `config.json` with the information about your blogs.
 3. Point a web server to your directory.
 4. There is no step four.
 

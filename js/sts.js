@@ -14,66 +14,59 @@ function loadBlogs() {
 	};
 
 	request.onerror = function buttonsOnError () {
-		// There was a connection error of some sort
-		alert("There was a big error. :(");
+		alert("There was a big connection error. :(");
 	};
-
+	
 	request.send();
 }
 
-// Make call to Blogger API and fill out Mustache template.
-// Expects API_Key from blogger, and the blog_id as strings.
-function getBloggerStats(api_key, blog_id, next_token) {
-	var request = new XMLHttpRequest();
-	if(next_token) {
-		//alert(next_token);
-		request.open('GET', 'https://www.googleapis.com/blogger/v3/blogs/' + blog_id + '/posts?pageToken=' + next_token + '&fields=kind,nextPageToken,items(title,published,replies/totalItems,url,author/displayName)' + '&key=' + api_key, true);
-	} else {
-		request.open('GET', 'https://www.googleapis.com/blogger/v3/blogs/' + blog_id + '/posts?key=' + api_key + '&fields=kind,nextPageToken,items(title,published,replies/totalItems,url,author/displayName)', true);
-	}
+function getBloggerStats(api_key, blog_id) {
+	var pages = [],
+	    json_resp = "",
+	    request = new XMLHttpRequest(),
+		template,
+		rendered;
+	pages.items = [];
+
+	request.open('GET', 'https://www.googleapis.com/blogger/v3/blogs/' + blog_id + '/posts?key=' + api_key + '&fields=kind,nextPageToken,items(title,published,replies/totalItems,url,author/displayName)', false);
 
 	request.onload = function bloggerOnLoad() {
-	if (request.status >= 200 && request.status < 400){
-		// Populate Mustache data.
-		var r = JSON.parse(request.responseText);
-		var template = document.getElementById("posts-template").innerHTML;
-		Mustache.parse(template);   // optional, speeds up future uses
-		var rendered = Mustache.render(template, r);
-		document.getElementById("posts").innerHTML = rendered;
-		// Allow the table to be sortable.
-		sorttable.makeSortable(document.getElementById("posts-table"))
-
-		// Does it look like we have a next page to view?
-		if(r.nextPageToken) {
-			r.api_key = api_key;
-			r.blog_id = blog_id;
-			template = document.getElementById("next-template").innerHTML;
-			Mustache.parse(template);
-			document.getElementById("next").innerHTML = Mustache.render(template, r);
+		if (request.status >= 200 && request.status < 400){
+			var i;
+			// Add response to pages[]
+			json_resp = JSON.parse(request.responseText);
+			for(i = 0; i < json_resp.items.length; i++) {
+				pages.items.push(json_resp.items[i]);
+			}
 		} else {
-			document.getElementById("next").innerHTML = "";
+			alert("Could not get data. Fail with HTTP error code of " + request.status + "!");
 		}
-	} else {
-		alert("Could not get data. HTTP error code of " + request.status + " !");
-	}
 	};
 
 	request.onerror = function bloggerOnError () {
-		// There was a connection error of some sort
-		alert("There was a big error. :(");
+		alert("There was a big error. Are you still connected to the Internet?");
 	};
 
-	request.send();
+	// Keep on sending requests until we don't see a next page token.
+	do {
+		request.send();
+		request.open('GET', 'https://www.googleapis.com/blogger/v3/blogs/' + blog_id + '/posts?pageToken=' + json_resp.nextPageToken + '&fields=kind,nextPageToken,items(title,published,replies/totalItems,url,author/displayName)' + '&key=' + api_key, false);
+	} while(json_resp.nextPageToken);
+
+	// Parse Mustache
+	template = document.getElementById("posts-template").innerHTML;
+	Mustache.parse(template);
+	rendered = Mustache.render(template, pages);
+	document.getElementById("posts").innerHTML = rendered;
+	sorttable.makeSortable(document.querySelectorAll("#posts > table:nth-child(1)")[0]);
+	//sorttable.makeSortable(document.getElementById("posts-table"));
 }
 
 // This will fix the ugly dates.
 // I don't know if I want to use this yet.
 function fixDates() {
 	Array.prototype.forEach.call(
-
-	document.querySelectorAll("#posts .date"),
-
-	function(el, i) {
+	document.querySelectorAll("#posts .date"), function(el, i) {
 		el.innerHTML = new Date(el.innerHTML).toLocaleDateString();
 	});
 }

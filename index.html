@@ -1,12 +1,12 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-	<title>Blogger Grader Demo</title>
+	<title>STS Blog Grader</title>
 	<meta charset="utf-8"> 
 	<link rel="stylesheet" href="css/sts.css">
-
 </head>
 <body>
-	<h1>STS Grader</h1>
+	<h1>STS Blog Grader</h1>
 
 	<div id="buttons-template" class="template">
 		<!--{{#blogs}}-->
@@ -32,13 +32,8 @@
 		</table>
 	</div>
 
-	<div id="next-template" class="template">
-		<button onclick="getBloggerStats('{{api_key}}', '{{blog_id}}', '{{nextPageToken}}');">next page</button>
-	</div>
-
 	<div id="buttons"></div>
 	<div id="posts"></div>
-	<div id="next"></div>
 
 	<footer>
 		Made by <a href="https://github.com/chris-barry">chris</a> (source is not posted yet).

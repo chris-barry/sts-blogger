@@ -24,9 +24,6 @@ To run your own instance of this page, you will need three things:
 * Export to excel?
 * Filter by date range.
   See [paramaters for post](https://developers.google.com/blogger/docs/3.0/reference/posts/list).
-* Previous page button
-	* Instead of clearing the data, make multiple JSON requests until no more `nextPageToken`.
-	  Keep on apprnding to json structure.
 
 ## License
 

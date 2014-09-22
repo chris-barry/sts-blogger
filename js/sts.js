@@ -75,6 +75,4 @@ function fixDates() {
 	});
 }
 
-loadBlogs();
-
 // @license-end

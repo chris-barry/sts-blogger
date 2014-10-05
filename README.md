@@ -21,9 +21,12 @@ To run your own instance of this page, you will need three things:
 
 ## TODO
 
-* Export to excel?
+* Export to CSV?
 * Filter by date range.
   See [paramaters for post](https://developers.google.com/blogger/docs/3.0/reference/posts/list).
+* List attributes of text:
+	* Number words
+	* Has picture
 
 ## License
 

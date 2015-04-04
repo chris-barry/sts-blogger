@@ -4,7 +4,7 @@
 
 function loadBlogs() {
 	var request = new XMLHttpRequest();
-	request.open('GET', "/config.json", true);
+	request.open('GET', "config.json", true);
 
 	request.onload = function buttonsOnLoad() {
 		// Populate Mustache data.

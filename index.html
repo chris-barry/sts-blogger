@@ -30,7 +30,7 @@
 			<tr>
 				<td>{{author.displayName}}</td>
 				<td sorttable_customkey="{{published}}" class="date">{{published}}</td>
-				<td><a href="{{url}}">{{title}}</a></td>
+				<td><a href="{{url}}">{{title}}{{^title}}[student did not supply a title]{{/title}}</a></td>
 				<td>{{replies.totalItems}}</td>
 			</tr>
 			<!--{{/items}}-->
